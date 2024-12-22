@@ -1,0 +1,129 @@
+<Window x:Class="NetworkLatencyOptimizer.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Minecraft Network Latency Optimizer" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 顶部工具栏 -->
+        <ToolBar Grid.Row="0" Height="40">
+            <Button x:Name="StartButton" ToolTip="启动优化器">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/start.png" Width="16" Height="16" Margin="0,0,5,0"/>
+                    <TextBlock Text="启动优化"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="StopButton" ToolTip="停止优化器" Margin="5,0">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/stop.png" Width="16" Height="16" Margin="0,0,5,0"/>
+                    <TextBlock Text="停止优化"/>
+                </StackPanel>
+            </Button>
+            <Separator/>
+            <Button x:Name="AddServerButton" ToolTip="添加服务器">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/add.png" Width="16" Height="16" Margin="0,0,5,0"/>
+                    <TextBlock Text="添加服务器"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="SettingsButton" ToolTip="设置" Margin="5,0">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/settings.png" Width="16" Height="16" Margin="0,0,5,0"/>
+                    <TextBlock Text="设置"/>
+                </StackPanel>
+            </Button>
+        </ToolBar>
+
+        <!-- 主内容区 -->
+        <Grid Grid.Row="1" Margin="0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- 左侧服务器列表 -->
+            <GroupBox Header="我的服务器" Grid.Column="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <ListBox x:Name="ServerListBox" Grid.Row="0" 
+                             SelectionChanged="ServerListBox_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding IconPath}" Width="16" Height="16" Margin="0,0,5,0"/>
+                                    <TextBlock Text="{Binding Name}"/>
+                                    <TextBlock Text="{Binding Latency, StringFormat='({0}ms)'}" 
+                                             Margin="5,0" Foreground="Gray"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </GroupBox>
+
+            <!-- 右侧状态和图表 -->
+            <Grid Grid.Column="1" Margin="10,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="200"/>
+                </Grid.RowDefinitions>
+
+                <!-- 状态面板 -->
+                <GroupBox Header="当前状态" Grid.Row="0">
+                    <WrapPanel Margin="5">
+                        <StackPanel Margin="0,0,20,0">
+                            <TextBlock Text="优化状态:" FontWeight="Bold"/>
+                            <TextBlock x:Name="StatusText" Text="未启动" Margin="0,5,0,0"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,0,20,0">
+                            <TextBlock Text="当前延迟:" FontWeight="Bold"/>
+                            <TextBlock x:Name="LatencyText" Text="--" Margin="0,5,0,0"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,0,20,0">
+                            <TextBlock Text="丢包率:" FontWeight="Bold"/>
+                            <TextBlock x:Name="PacketLossText" Text="--" Margin="0,5,0,0"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,0,20,0">
+                            <TextBlock Text="上传速度:" FontWeight="Bold"/>
+                            <TextBlock x:Name="UploadSpeedText" Text="--" Margin="0,5,0,0"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="下载速度:" FontWeight="Bold"/>
+                            <TextBlock x:Name="DownloadSpeedText" Text="--" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </GroupBox>
+
+                <!-- 延迟图表 -->
+                <GroupBox Header="延迟历史" Grid.Row="1">
+                    <Grid x:Name="LatencyChart" Background="White"/>
+                </GroupBox>
+
+                <!-- 日志面板 -->
+                <GroupBox Header="优化日志" Grid.Row="2">
+                    <TextBox x:Name="LogTextBox" 
+                             IsReadOnly="True"
+                             VerticalScrollBarVisibility="Auto"
+                             TextWrapping="Wrap"/>
+                </GroupBox>
+            </Grid>
+        </Grid>
+
+        <!-- 底部状态栏 -->
+        <StatusBar Grid.Row="2" Height="25">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusBarText" Text="就绪"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window> 

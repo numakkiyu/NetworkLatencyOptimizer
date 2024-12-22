@@ -1,0 +1,59 @@
+<Window x:Class="NetworkLatencyOptimizer.UI.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="设置" Height="400" Width="500"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <GroupBox Header="基本设置" Margin="0,0,0,10">
+                <StackPanel Margin="5">
+                    <DockPanel Margin="0,5">
+                        <Label Content="Hypixel服务器IP:" Width="120"/>
+                        <TextBox x:Name="HypixelIpTextBox" Text="{Binding HypixelIP}"/>
+                    </DockPanel>
+                    <DockPanel Margin="0,5">
+                        <Label Content="延迟阈值(ms):" Width="120"/>
+                        <TextBox x:Name="LatencyThresholdTextBox" Text="{Binding LatencyThreshold}"/>
+                    </DockPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="DNS设置" Margin="0,0,0,10">
+                <StackPanel Margin="5">
+                    <DockPanel Margin="0,5">
+                        <Label Content="DNS服务器:" Width="120"/>
+                        <TextBox x:Name="DnsServersTextBox" Text="{Binding DNSServersText}"/>
+                    </DockPanel>
+                    <TextBlock Text="多个DNS服务器请用逗号分隔" Foreground="Gray" Margin="120,0,0,0"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="优化选项" Margin="0,0,0,10">
+                <StackPanel Margin="5">
+                    <CheckBox x:Name="TcpOptimizationCheckBox" 
+                              Content="启用TCP优化"
+                              IsChecked="{Binding EnableTcpOptimization}"
+                              Margin="0,5"/>
+                    <CheckBox x:Name="RouteOptimizationCheckBox" 
+                              Content="启用路由优化"
+                              IsChecked="{Binding EnableRouteOptimization}"
+                              Margin="0,5"/>
+                    <CheckBox x:Name="DnsOptimizationCheckBox" 
+                              Content="启用DNS优化"
+                              IsChecked="{Binding EnableDnsOptimization}"
+                              Margin="0,5"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Content="保存" Width="80" Height="25" Click="SaveButton_Click" Margin="0,0,10,0"/>
+            <Button Content="取消" Width="80" Height="25" Click="CancelButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window> 
